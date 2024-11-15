@@ -40,6 +40,7 @@ namespace api.Controllers
                                                DocumentId = d.documentId,
                                                Content = d.Content,
                                                Details = d.Details,
+                                               MimeType = d.MimeType
                                                // Chỉ lưu thông tin chi tiết mà bạn muốn hiển thị
                                            })
                                            .ToListAsync();
@@ -65,25 +66,32 @@ namespace api.Controllers
 
             using (var memoryStream = new MemoryStream())
             {
+                // Sao chép nội dung file vào memoryStream
                 await file.CopyToAsync(memoryStream);
 
+                // Tạo document mới và lưu thông tin
                 var document = new Documents
                 {
                     CourseClassId = courseClassId,
-                    Content = Content, // Tên tệp hoặc mô tả
-                    Details = memoryStream.ToArray() // Lưu nội dung tệp dưới dạng byte[]
+                    Content = Content, // Tên hoặc mô tả tài liệu
+                    Details = memoryStream.ToArray(), // Lưu nội dung tệp dưới dạng byte[]
+                    MimeType = file.ContentType // Lưu kiểu MIME của tệp
                 };
 
-                // Thêm tài liệu vào ngữ cảnh
+                // Thêm tài liệu vào ngữ cảnh và lưu vào cơ sở dữ liệu
                 _context.Documents.Add(document);
-
-                // Lưu thay đổi vào cơ sở dữ liệu
                 await _context.SaveChangesAsync();
 
-                // Trả về tài liệu đã được tạo
-                return CreatedAtAction(nameof(GetDocumentsByCourseClassId), new { courseClassId = courseClassId }, document);
+                // Trả về tài liệu đã được tạo, bao gồm MimeType
+                return CreatedAtAction(nameof(GetDocumentsByCourseClassId), new { courseClassId = courseClassId }, new
+                {
+                    document.documentId,
+                    document.Content,
+                    document.MimeType
+                });
             }
         }
+
 
 
 

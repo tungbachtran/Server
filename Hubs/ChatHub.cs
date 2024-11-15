@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Cors;
 using api.Data;
 using api.Model.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
+
 namespace api.Hubs
 {
     [EnableCors("Allow CORS")]
@@ -22,11 +23,13 @@ namespace api.Hubs
             {
                 throw new ArgumentException("Nội dung tin nhắn không hợp lệ.");
             }
+
             var user = await _context.User.FirstOrDefaultAsync(u => u.UserId == senderId);
             if (user == null)
             {
                 throw new ArgumentException("Người dùng không tồn tại.");
             }
+
             // Tạo tin nhắn mới
             var newMessage = new ChatMessages
             {
@@ -42,8 +45,8 @@ namespace api.Hubs
                 await _context.ChatMessages.AddAsync(newMessage);
                 await _context.SaveChangesAsync();
 
-                // Gửi tin nhắn đến các client khác
-                await Clients.All.SendAsync("ReceiveMessage", user.Name, content, newMessage.Timestamp);
+                // Gửi tin nhắn đến các client khác, ngoại trừ người gửi
+                await Clients.Others.SendAsync("ReceiveMessage", user.Name, content, newMessage.Timestamp);
             }
             catch (Exception ex)
             {

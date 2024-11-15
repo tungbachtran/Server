@@ -11,6 +11,7 @@
 		<PackageReference Include="EPPlus" Version="7.3.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
 		<PackageReference Include="Microsoft.DotNet.Scaffolding.Shared" Version="8.0.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />

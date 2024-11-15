@@ -14,7 +14,7 @@ namespace api.Model.DatabaseModels
         public string Content { get; set; }
 
         public byte[] Details { get; set; }
-
+        public string? MimeType { get; set; }
         // Khóa ngoại tham chiếu đến CourseClassroom
         [ForeignKey("CourseClassroom")]
         public string CourseClassId { get; set; }

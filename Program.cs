@@ -4,9 +4,23 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using api.Hubs;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using System.Net;
 var builder = WebApplication.CreateBuilder(args);
 var key = builder.Configuration.GetSection("AppSettings:Token").Value;
 var keyBytes = Encoding.UTF8.GetBytes(key);
+
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    // Lắng nghe trên tất cả các địa chỉ IP và cổng 5001
+    options.Listen(IPAddress.Any, 5001, listenOptions =>
+    {
+        // Cấu hình HTTPS với chứng chỉ SSL
+        listenOptions.UseHttps("C:\\ssl-certs\\server.pfx", "tung2982004"); // thay "password" bằng mật khẩu bạn đặt
+    });
+});
 
 // Thêm dịch vụ DbContext với chuỗi kết nối từ appsettings.json
 builder.Services.AddDbContext<StudentContext>(options =>
