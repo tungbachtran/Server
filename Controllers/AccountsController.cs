@@ -35,7 +35,7 @@ namespace api.Controllers
             _enviroment = environment;
         }
         [HttpPost("register")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<LoginDto>> Register(RegisterDto request)
         {
             // Tạo một biến user trước
@@ -328,7 +328,7 @@ namespace api.Controllers
             }
             return BadRequest("Wrong Password");
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("{username}")]
         [HttpDelete]
         public async Task<ActionResult<User>> Delete(string username)
@@ -345,7 +345,7 @@ namespace api.Controllers
         {
             public IFormFile files { get; set; }
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("upload-file")]
         public async Task<ActionResult<List<LoginDto>>> uploadFile([FromForm] FileUpLoadAPI data)
         {

@@ -115,7 +115,7 @@ namespace api.Controllers
         // POST: api/CourseClassrooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<CourseClassroom>> PostCourseClassroom(CreateCourseClassroomDto request)
         {
             if (_context.CourseClassroom == null)
@@ -170,7 +170,7 @@ namespace api.Controllers
 
         // DELETE: api/CourseClassrooms/5
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCourseClassroom(string id)
         {
             var schedule = _context.Schedule.Where(w => w.CourseClassId == id);
@@ -221,7 +221,7 @@ namespace api.Controllers
         }
 
         [HttpPut("finish-all-classes")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IEnumerable<CourseClassroom>> CompletedAllClasses()
         {
             List<CourseClassroom> courseClassrooms = _context.CourseClassroom.ToList();

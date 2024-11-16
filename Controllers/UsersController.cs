@@ -110,7 +110,7 @@ namespace api.Controllers
         }
 
         [HttpGet("faculty/{facultyId}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Classroom>>> GetAllStudentInFaculty(string facultyId)
         {
             Faculty faculty = await _context.Faculty.FindAsync(facultyId);
@@ -146,7 +146,7 @@ namespace api.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             if (_context.User == null)
@@ -166,7 +166,7 @@ namespace api.Controllers
             return NoContent();
         }
         [HttpGet("course-class/{UserId}")]
-        //[Authorize(Roles = "Admin, Teacher")]
+        [Authorize(Roles = "Admin, Teacher")]
         public async Task<ActionResult<List<CourseClassroom>>> GetAllCourseClassroom(string UserId)
         {
             var classList = (from w in _context.UserCourseClassroom

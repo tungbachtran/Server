@@ -84,7 +84,7 @@ namespace api.Controllers
         // POST: api/EducationalPrograms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<EducationalProgram>> PostEducationalProgram(CreateEducationalProgramDto request)
         {
           if (_context.EducationalProgram == null)
@@ -118,7 +118,7 @@ namespace api.Controllers
 
         // DELETE: api/EducationalPrograms/5
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEducationalProgram(string id)
         {
             if (_context.EducationalProgram == null)
@@ -138,7 +138,7 @@ namespace api.Controllers
         }
         //Add course to Educational Program
         [HttpPost("course")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<CourseEducationProgram>> AddCourse(AddCourseToEducationalProgramDto request)
         {
             Course course = _context.Courses.Find(request.CourseId);
@@ -161,7 +161,7 @@ namespace api.Controllers
 
         //Remove course from Educational Program
         [HttpDelete("course")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<CourseEducationProgram>> DeleteCourse(DeleteCourseFromEducationalProgramDto request)
         {
             CourseEducationProgram courseEducationProgram = _context.CourseEducationProgram
@@ -188,7 +188,7 @@ namespace api.Controllers
             public IFormFile files { get; set; }
         }
         [HttpPost("upload-file")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<CreateCourseDto>>> UploadTask([FromForm] FileUpLoadAPI data)
         {
             //download file from client

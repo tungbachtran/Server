@@ -63,7 +63,7 @@ namespace api.Controllers
         }
 
         [HttpPut]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Course>> UpdateCourse(CreateCourseDto request)
         {
             Course course = _context.Courses.Find(request.CourseId);
@@ -89,7 +89,7 @@ namespace api.Controllers
         // POST: api/Courses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Course>> PostCourse(CreateCourseDto request)
         {
             if (_context.Courses == null)
@@ -125,7 +125,7 @@ namespace api.Controllers
         }
         // DELETE: api/Courses/5
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCourse(string id)
         {
             if (_context.Courses == null)
@@ -220,7 +220,7 @@ namespace api.Controllers
         }
 
         [HttpPost("upload-file")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<CreateCourseDto>>> UploadTask([FromForm] FileUpLoadAPI data)
         {
             //download file from client

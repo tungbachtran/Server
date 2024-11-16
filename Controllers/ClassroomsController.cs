@@ -83,7 +83,7 @@ namespace api.Controllers
         // POST: api/Classrooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Classroom>> PostClassroom(CreateClassroomDto request)
         {
           if (_context.Classroom == null)
@@ -137,7 +137,7 @@ namespace api.Controllers
 
         // DELETE: api/Classrooms/5
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteClassroom(string id)
         {
             if (_context.Classroom == null)

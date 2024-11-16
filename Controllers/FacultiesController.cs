@@ -80,7 +80,7 @@ namespace api.Controllers
         // POST: api/Faculties
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Faculty>> PostFaculty(CreateFacultyDto request)
         {
           if (_context.Faculty == null)
@@ -117,7 +117,7 @@ namespace api.Controllers
 
         // DELETE: api/Faculties/5
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteFaculty(string id)
         {
             if (_context.Faculty == null)
